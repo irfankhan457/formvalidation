@@ -1,0 +1,73 @@
+<div class="container">
+  <h1>MultiSearch Boxes</h1>
+  <form #carForm ="ngForm" (ngSubmit)="onSubmit(carForm.value)">
+    <table>
+      <tr>
+        <td>
+          <div class="form-group">
+              <label>Vin</label>
+              <select class="form-control" name="vin" [(ngModel)]="modelCar.vin" (click)="enableYear()">
+                <option *ngFor="let car of cars" value= {{car.vin}}>
+                    {{car.vin}}
+                </option>
+              </select>
+          </div>
+        </td>
+        <td>
+          <div class="form-group">
+            <label>Year</label>
+            <input [disabled]="enableYears" (click)="enableYear()" type="text" class="form-control" 
+            name="year" id="year" [(ngModel)]="modelCar.year" minlength="1" maxlength="30" #year="ngModel" required>
+            <div *ngIf="year.errors && (year.dirty || year.touched)" class="alert alert-danger">
+                <div [hidden]="!year.errors.required">
+                  year is required!
+                </div>
+                <div [hidden]="!year.errors.minlength">
+                  year must be at least 5 characters long.
+                </div>
+                <div [hidden]="!year.errors.maxlength">
+                  year cannot be more than 30 characters long.
+                </div>
+            </div>
+          </div>
+        </td>
+        <td>
+            <div class="form-group">
+              <label>Brand</label>
+              <input type="text" class="form-control" name="brand" [(ngModel)]="modelCar.brand">
+            </div>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <div class="form-group">
+            <label>Color</label>
+            <input type="text" class="form-control" name="color" [(ngModel)]="modelCar.color">
+          </div>
+        </td>
+        <td>
+            <div class="form-group">
+              <label>Price</label>
+              <input type="text" class="form-control" name="price" [(ngModel)]="modelCar.price">
+            </div>
+        </td>
+        <td>
+            <div class="form-group">
+                <label>Country</label>
+                <angular2-multiselect class="form-control" name="country" [data]="dropdownList" [(ngModel)]="modelCar.country" 
+                                        [settings]="settings" 
+                                        (onSelect)="onItemSelect($event)"
+                                        (onDeSelect)="OnItemDeSelect($event)" 
+                                        (onSelectAll)="onSelectAll($event)" 
+                                        (onDeSelectAll)="onDeSelectAll($event)">
+                </angular2-multiselect> 
+            </div>
+        </td>
+      </tr>
+      </table>
+      <div class="form-group">
+        <button type="submit" class="btn btn-default" [disabled]="!carForm.form.valid">Submit</button>
+      </div>
+  </form>
+
+</div>

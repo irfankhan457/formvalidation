@@ -1,0 +1,138 @@
+
+<div>
+<!-- <div id="filter">
+    <label>Filter By Brand:</label>
+    <input type="text" pInputText [(ngModel)]="term"/>
+
+</div> -->
+
+<h3>Find By Brand Name</h3>
+<div>
+	<form (ngSubmit)="onSubmit()">
+        <table>
+            <tr>
+                <td id="brand" name="brand" class="form-group" name="wgtmsr" id="wgtmsr">
+                <!-- <div class="form-group" name="wgtmsr" id="wgtmsr"> -->
+                    <label for="brand">VIN</label> <br>
+                    <select (click)="callVin()" name="wgtmsr" id="wgtmsr">
+                        <option class="wgtmsr"  class="form-control" 
+                        *ngFor="let car of cars"   
+                         id="brand" name="brand" ngDefaultControl
+                                value= {{car.brand}}  [(ngModel)]="car1.brand">
+                            {{car.brand}}
+                        </option>
+                    </select>
+                <!--  </div> -->
+                </td>
+               <!-- <td class="form-group" name="wgtmsr" id="wgtmsr">
+                   <div class="form-group" name="wgtmsr" id="wgtmsr"> 
+                        <label for="brand">Brand</label> <br>
+                        <input [disabled]="cVin" name="wgtmsr" id="wgtmsr" type="text" class="form-control" id="brand" required
+                        [(ngModel)]="car1.brand" name="brand"> 
+                    </div> 
+                </td> -->
+                <td class="form-group" name="wgtmsr" id="wgtmsr">
+                   <!-- <div class="form-group" name="wgtmsr" id="wgtmsr"> -->
+                        <label for="year">Year</label> <br>
+                        <input name="wgtmsr" id="wgtmsr" type="text" class="form-control" id="year" required
+                        [(ngModel)]="car1.year" name="year"> 
+                        
+                    <!-- </div> -->
+                </td>
+            </tr>
+            <tr>
+              
+                <td class="form-group" name="wgtmsr" id="wgtmsr">
+                   <!-- <div class="form-group" name="wgtmsr" id="wgtmsr"> -->
+                        <label  for="color">Color</label> <br>
+                        <input required minlength="4" name="wgtmsr" id="wgtmsr" type="text" class="form-control" id="color" required
+                        [(ngModel)]="car1.color" name="color"> 
+                    <!-- </div> -->
+                </td>
+                
+
+                <td  class="form-group" name="wgtmsr" id="wgtmsr">
+                        <!-- <div class="form-group" name="wgtmsr" id="wgtmsr"> -->
+                            <label for="vin"> Vin Code</label><br>
+                            <angular2-multiselect [data]="dropdownList" [(ngModel)]="car1.country" 
+                                                    [settings]="settings" 
+                                                    (onSelect)="onItemSelect($event)"
+                                                    (onDeSelect)="OnItemDeSelect($event)" 
+                                                    (onSelectAll)="onSelectAll($event)" 
+                                                    (onDeSelectAll)="onDeSelectAll($event)" name="skills">
+                            </angular2-multiselect>     
+                        <!-- </div> -->
+                        </td>
+            </tr>
+ 
+
+            <tr>
+                <td>
+                    <div class="btn-group">
+                        <button type="submit" class="btn btn-success">Submit</button>
+                    </div>
+                </td>
+            </tr>
+
+        </table>
+	
+ 
+		
+	</form>
+</div> 
+<!--<ul>
+	<li *ngFor="let cust of customers">
+		<h4>{{cust.id}} - {{cust.firstName}} {{cust.lastName}}</h4>
+	</li>
+</ul> -->
+
+<app-addnew-car></app-addnew-car>
+
+
+<p-table [columns]="cols" [value]="cars" selectionMode="single" 
+[(selection)]="selectedCar" (onRowSelect)="onRowSelect($event)" [paginator]="true" rows="5">
+    <ng-template pTemplate="header" let-columns>
+        <tr>
+            <th *ngFor="let col of columns">
+                {{col.header}}
+            </th>
+        </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-rowData let-columns="columns">
+        <tr [pSelectableRow]="rowData">
+            <td *ngFor="let col of columns">
+                {{rowData[col.field]}} 
+            </td>
+        </tr>
+    </ng-template>
+
+    <ng-template pTemplate="summary" let-rowData>
+        <div style="text-align:left">
+            <button type="button" pButton icon="fa-plus" (click)="showDialogToAdd()" label="Add"></button>
+        </div>
+    </ng-template>
+</p-table>
+
+<p-dialog header="Car Details" [(visible)]="displayDialog" [responsive]="true" showEffect="fade" [modal]="true" [closable]="true" [width]="300">
+    <div class="ui-g ui-fluid" *ngIf="car">
+        <div class="ui-g-4"><label for="vin">Vin</label></div>
+        <div class="ui-g-8"><input pInputText id="vin" [(ngModel)]="car.vin" /></div>
+        
+        <div class="ui-g-4"><label for="year">Year</label></div>
+        <div class="ui-g-8"><input pInputText id="year" [(ngModel)]="car.year" /></div>
+        
+        <div class="ui-g-4"><label for="brand">Brand</label></div>
+        <div class="ui-g-8"><input pInputText id="brand" [(ngModel)]="car.brand" /></div>
+        
+        <div class="ui-g-4"><label for="color">Color</label></div>
+        <div class="ui-g-8"><input pInputText id="color" [(ngModel)]="car.color" /></div>
+    </div>
+    <p-footer>
+        <div class="ui-dialog-buttonpane ui-helper-clearfix">
+            <button type="button" pButton icon="fa-close" (click)="delete()" label="Delete"></button>
+            <button type="button" pButton icon="fa-check" (click)="save()" label="Save"></button>
+        </div>
+    </p-footer>
+</p-dialog>
+</div>
+
